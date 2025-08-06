@@ -1,0 +1,57 @@
+Help me build a Blazor Server project for an online store offering products in three main categories: Hardware, Products, and Apps. Each category contains a curated set of items, each with a detailed product page including: product name, description, features and benefits, technical specifications, images and videos, user interface, customer reviews and ratings, shipping and return policies, security and compliance info, customization and integration options, training and support resources, and upcoming features roadmap.
+
+The app should include:
+
+1. User registration and login pages with the following fields:
+   - Company Name (required)
+   - Contact Name (required)
+   - Contact Email (required, unique)
+   - Contact Phone Number (required)
+   - Country (required, detected by IP with selectable list)
+   - Company Size (required; options: <5, 5-20, 20-50, 50-250, >250 employees)
+   - Industry (optional; multiple industry options)
+   - Username (required, unique)
+   - Password and Confirm Password fields (masked with show/hide toggle)
+   - Terms and Conditions checkbox (must be accepted before sign-up)
+   - Appropriate validation and error handling for duplicates, missing fields, and weak passwords
+
+2. Product pages with a prominent "Purchase" button that redirects users to sign-up if not logged in.
+
+3. After signing up, a plan selection page with tiered subscription plans (Basic, Standard, Premium) featuring:
+   - Plan name, description, features list
+   - Monthly and yearly pricing with toggle switch to update displayed prices dynamically
+   - Call-to-action button to proceed with subscription
+   - Link to a plan comparison page
+
+4. Add-ons customization popup after plan selection, with:
+   - Billing cycle toggle (monthly/yearly)
+   - Number of users input
+   - Add-ons list with selectable features (checkboxes/dropdowns), each with name, description, and price
+   - System configuration options for cloud-based or on-premise servers, including server type, URL, and capacity
+   - Real-time updated summary of selections and pricing
+   - Proceed button to continue
+
+5. Payment screen with two sections:
+   - Left: Billing details form (company name, phone, address, etc.) and payment card details (cardholder, number, expiry, CVV)
+   - Right: Payment summary with total amount due, selected plans, add-ons, and discounts
+   - "Make a Payment" button to securely process payment
+
+6. Success screen confirming subscription with:
+   - Confirmation message
+   - Summary of subscription details (plan, add-ons, billing cycle, total paid)
+   - Next steps (dashboard access, tutorials, portal link, app download)
+   - Unique order number for reference
+   - Customer support contact info
+
+Please help me by:
+
+- Organizing the project with Razor components (.razor files)
+- Creating the necessary pages and routing
+- Suggesting a suitable database structure using Entity Framework Core
+- Implementing user registration and validation logic
+- Designing responsive UI with Bootstrap or similar CSS framework
+- Writing clear, maintainable C# code suitable for extension
+
+Note: Use Blazor Server (not WebAssembly).
+
+I want to build this step-by-step, starting from project setup and basic navigation. Please generate sample code snippets and explanations accordingly.
