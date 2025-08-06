@@ -1,0 +1,115 @@
+We're focused on building an online store that offers a variety of products grouped into three main categories: Hardware, Products, and Apps.
+Each category will have its own set of carefully selected items.
+1.      Solution Categories:
+1.1.    Hardware: This category will feature a diverse array of physical products tailored to meet various needs.
+1.2.    Products: The Products category will serve as a hub for digital offerings, including software solutions, digital downloads, and virtual goods.
+1.3.    Apps: The Apps category will showcase a vibrant assortment of software applications, spanning across platforms and functionalities.
+2.      Product Pages: Each item within the solution categories will have its dedicated product page.
+2.1.    Product Overview:
+2.1.1.  Product Name
+2.1.2.  Product Description
+2.2.    Features and Benefits
+2.3.    Technical Specifications
+2.4.    Product Images and Videos
+2.5.    User Interface
+2.6.    Customer Reviews and Ratings
+2.7.    Shipping Information and Return Policy
+2.8.    Security and Compliance Information
+2.9.    Customization and Integration
+2.10. Additional Solutions
+2.11. Training and Support Resources
+2.12. Upcoming Features and Roadmap
+2.13. Seamless Purchase Journey: A prominent "Purchase" button will facilitate swift transactions, guiding users through the checkout process seamlessly.
+3.      Sign-Up: To streamline the user journey and foster engagement, clicking on the "Purchase" button will seamlessly transition users to the sign-up page if they are not already logged in.
+3.1.    Sign-Up Form Requirements:
+3.1.1.  Company Name: (Text field, Required, Null)
+3.1.2.  Contact Name: (Text field, Required, Null)
+3.1.3.  Contact Email: (Email, Required, Null); Unique
+3.1.4.  Contact Phone Number: (Mobile number, Required, Null)
+3.1.5.  Country: (List, Required, Null) determined by IP; list of countries.
+3.1.6.  Company Size: (List, Required, 20 - 50 employees)
+3.1.6.1.  < 5 employees
+3.1.6.2.  5 - 20 employees
+3.1.6.3.  20 - 50 employees
+3.1.6.4.  50 - 250 employees
+3.1.6.5.  250 employees
+3.1.7.  Industry: (List, Optional, Null)
+3.1.7.1.  Manufacturing, Retail, Healthcare, Financial Services, Information Technology, Education, Hospitality, Construction, Professional Services, Logistics and Transportation, Government, Non-profit, Energy and Utilities, Agriculture, Media and Entertainment, Real Estate, Automotive, Telecommunications, Consumer Goods, E-commerce
+3.1.8.  Username: (Text Field, Required, Null); Unique
+3.1.9.  Password: (Text Field, Required, Null); masked to hide characters being entered.
+3.1.9.1.  Show/Hide password button: Toggle/eye button allows users to reveal or conceal entered characters;      hidden once another field is active.
+3.1.10.     Confirm Password: (Text Field, Required, Null); masked to hide characters being entered.
+3.1.11.     Show/Hide password button: Toggle/eye button allows users to reveal or conceal entered characters; hidden once another field is active.
+3.1.12.     Terms and Conditions: Checkbox, inactive; acknowledgment statement required to confirm agreement to the site's terms and conditions or user agreement.
+3.1.12.1.   "I have read and agree to the site's Terms and Conditions and Privacy Policy."
+3.1.12.2.   Terms and Conditions and Privacy Policy will be hyperlinks.
+3.1.13.     Sign-Up Action Button: Button initiates sign-up process.
+3.1.13.1.   Error Handling: Display warning messages for duplicate email addresses, existing usernames, weak passwords, unaccepted terms and conditions, and incomplete fields.
+4.      Plan Selection Process: After completing the sign-up process, users will proceed to select a suitable plan from our tiered pricing structure.
+4.1.    Plan Details:
+4.1.1.  Name: Each plan will have a descriptive title, such as Basic, Standard, or Premium, indicating the level of service and features offered.
+4.1.2.  Description: A brief overview of what's included in the plan will be provided.
+4.1.3.  Features: A comprehensive list of features included in the plan will be presented, emphasizing key functionalities that differentiate each plan.
+4.1.4.  Pricing: Clear pricing information, including both monthly and annual subscription fees, will be prominently displayed. Any discounts will be indicated to explore cost-saving options.
+4.1.4.1.  A toggle button will be provided to allow users to switch between monthly and yearly pricing options. This toggle button will dynamically update the displayed prices based on the selected option
+4.2.    Call-to-Action: A prominent call-to-action button will be included, encouraging users to select their desired plan and proceed with the subscription process. (Get Started, Proceed, Continue)
+4.3.    Comparison Link:
+4.3.1.  To assist users in making an informed decision, a comparison link will be provided, redirecting them to a dedicated page containing a side-by-side comparison of the different pricing plans. This comparison table will outline key features, benefits, and pricing details for easy reference and comparison.
+5.      Add-Ons Popup:
+After selecting a plan, users will be directed to a popup window where they can customize their subscription further. This popup will be split into two sections:
+5.1.    Left Section:
+5.1.1.  Billing Cycle Toggle Button: Users can toggle between monthly and yearly billing options. The displayed prices will dynamically update based on the selected billing cycle.
+5.1.2.  Number of Users: Users can input the number of users they wish to include in their subscription. A hint will display the price per user per month or year, depending on the selected billing cycle.
+5.1.3.  Add-Ons Block: This section will contain a list of additional features that users can add to their selected plan.
+5.1.3.1.  Each feature will be presented as a dropdown menu or checkbox, allowing users to customize their subscription according to their specific requirements.
+5.1.3.2.  Features will be sorted by sequence, and each will include a name, description, and corresponding price.
+5.1.3.3.  The total value of selected add-ons will be considered in the overall subscription price.
+5.1.4.  System Configuration Block: Users can configure the installation and operational setup of their system. This block will include the following options:
+5.1.4.1.  Server Works: Users can choose between cloud-based (Default) or on-premise server setup.
+5.1.4.1.1. If cloud is selected, additional option for server configuration will be provided.
+5.1.4.1.1.1. Shared VM (default)
+5.1.4.1.1.2. Single VM
+5.1.4.1.2. If on-premise is selected, additional options for server configuration will be provided.
+5.1.4.1.2.1. Server Type: Users can specify whether they prefer a shared or dedicated virtual machine (VM) if opting for cloud-based server setup.
+5.1.4.1.2.2. Server URL: This field will appear for on-premise setup, allowing users to input the server URL.
+5.1.4.1.2.3. Server Capacity: Users can specify the required capacity of their server.
+5.2.    Right Section:
+5.2.1.  Summary: This section will display a summary of the selected options on the left side. It will be automatically updated in real-time based on the user's selections, providing a clear overview of the chosen features, pricing, and server configuration.
+5.3.    Proceed Button:
+Once users have customized their subscription to their satisfaction, they can proceed to the next step by clicking the "Proceed" button.
+6.      Payment Screen:
+Upon proceeding from the adds-on screen, users will be directed to the payment screen where they can securely complete their transaction. The payment screen will feature two main sections:
+6.1.    Left Side:
+6.1.1.  Billing Details Block
+6.1.1.1.  Company Name
+6.1.1.2.  Phone Number.
+6.1.1.3.  Country
+6.1.1.4.  Street
+6.1.1.5.  City
+6.1.1.6.  Postal Code
+6.1.2.  Payment Details:
+6.1.2.1.  Card Holder Name
+6.1.2.2.  Credit/Debit Card Number
+6.1.2.3.  Expiry Date: (MM) / (YY)
+6.1.2.4.  CVV
+6.2.    Right Side: Payment Summary
+6.2.1.  A summary of the selected subscription plan, add-ons, and any applicable discounts will be displayed.
+6.2.2.  The total amount due for the transaction will be prominently shown.
+6.3.    Make a Payment Button: Users will finalize the transaction by clicking the "Make a Payment" button. This action will securely process the payment and complete the subscription setup.
+ 
+
+7.      Success Screen
+Upon successful completion of the payment process, users will be directed to a dedicated success screen confirming their subscription. This screen will serve as a reassuring acknowledgment of the completed transaction and will provide users with essential details regarding their subscription setup.
+7.1.    Confirmation Message: A prominently displayed message will convey the successful completion of the subscription process.
+7.2.    Subscription Details: Below the confirmation message, users will find a summary of their subscription details. This will include information such as:
+7.2.1.  Selected subscription plan with any add-ons included.
+7.2.2.  Subscription billing cycle (monthly or yearly).
+7.2.3.  Total amount paid.
+7.3.    Next Steps: To provide users with clear guidance on what to do next, a concise outline of the subsequent steps will be presented. will include:
+7.3.1.  Accessing their account dashboard.
+7.3.2.  Onboarding instructions or tutorials.
+7.3.3.  Go to the myShop portal
+7.3.4.  Download the myShop App.
+7.4.    Order Number: Users will be presented with a unique confirmation number their transaction. This serves as proof of payment and can be referenced in case of any future inquiries or discrepancies.
+7.5.    Customer Support Information: Contact details for customer support services will be readily available on the success screen.
+
