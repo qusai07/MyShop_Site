@@ -81,23 +81,33 @@ namespace MyShop_Site.Services
             }
         }
 
-        public async Task<User?> AuthenticateAsync(string username, string password)
+        // Helper method for password hashing (replace with a strong hashing algorithm in production)
+        private string HashPassword(string password)
         {
-            try
+            // Example using a simple hash, replace with BCrypt or similar for production
+            using (var sha256Hash = SHA256.Create())
             {
-                var user = await _context.Users
-                    .FirstOrDefaultAsync(u => u.Username == username || u.ContactEmail == username);
-
-                if (user != null && BCrypt.Net.BCrypt.Verify(password, user.Password))
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
                 {
-                    return user;
+                    builder.Append(bytes[i].ToString("x2"));
                 }
-                return null;
+                return builder.ToString();
             }
-            catch
-            {
-                return null;
-            }
+        }
+
+        // Helper method for password verification (replace with a strong hashing algorithm in production)
+        private bool VerifyPassword(string providedPassword, string hashedPassword)
+        {
+            // Example using a simple hash, replace with BCrypt or similar for production
+            return HashPassword(providedPassword) == hashedPassword;
+        }
+
+        // Helper method to get user by username
+        private async Task<User?> GetUserByUsernameAsync(string username)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
         }
     }
 }
