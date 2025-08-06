@@ -1,4 +1,3 @@
-
 using Microsoft.EntityFrameworkCore;
 using MyShop_Site.Data;
 using MyShop_Site.Models;
@@ -30,10 +29,10 @@ namespace MyShop_Site.Services
         {
             user.PasswordHash = HashPassword(password);
             user.CreatedDate = DateTime.UtcNow;
-            
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            
+
             return user;
         }
 
@@ -41,31 +40,64 @@ namespace MyShop_Site.Services
         {
             var user = await _context.Users
                 .FirstOrDefaultAsync(u => u.Username == username && u.IsActive);
-            
+
             if (user != null && VerifyPassword(password, user.PasswordHash))
             {
                 return user;
             }
-            
+
             return null;
         }
 
-        public async Task<User?> GetUserByIdAsync(int userId)
+        public async Task<User?> GetUserByIdAsync(int id)
         {
-            return await _context.Users.FindAsync(userId);
+            return await _context.Users.FindAsync(id);
         }
 
-        private string HashPassword(string password)
+        public async Task<User?> RegisterAsync(User user)
         {
-            using var sha256 = SHA256.Create();
-            var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-            return Convert.ToBase64String(hashedBytes);
+            try
+            {
+                // Check if username or email already exists
+                var existingUser = await _context.Users
+                    .FirstOrDefaultAsync(u => u.Username == user.Username || u.ContactEmail == user.ContactEmail);
+
+                if (existingUser != null)
+                {
+                    return null; // User already exists
+                }
+
+                // Hash password (in production, use proper password hashing)
+                user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+                user.CreatedAt = DateTime.UtcNow;
+
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
+                return user;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
-        private bool VerifyPassword(string password, string hash)
+        public async Task<User?> AuthenticateAsync(string username, string password)
         {
-            var hashedInput = HashPassword(password);
-            return hashedInput == hash;
+            try
+            {
+                var user = await _context.Users
+                    .FirstOrDefaultAsync(u => u.Username == username || u.ContactEmail == username);
+
+                if (user != null && BCrypt.Net.BCrypt.Verify(password, user.Password))
+                {
+                    return user;
+                }
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
