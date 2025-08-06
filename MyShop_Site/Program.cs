@@ -52,11 +52,11 @@ app.MapRazorPages();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
-// Initialize database
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<MyShopDbContext>();
-    context.Database.EnsureCreated();
-}
+//// Initialize database
+//using (var scope = app.Services.CreateScope())
+//{
+//    var context = scope.ServiceProvider.GetRequiredService<MyShopDbContext>();
+//    context.Database.EnsureCreated();
+//}
 
-app.Run("http://0.0.0.0:5000");
+app.Run();
