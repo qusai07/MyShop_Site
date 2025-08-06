@@ -1,73 +1,269 @@
+
 @page "/"
 
-<PageTitle>MyShop - Your Digital Marketplace</PageTitle>
+<PageTitle>الرئيسية - MyShop</PageTitle>
 
-<div class="hero-section bg-primary text-white py-5">
+<!-- Hero Section -->
+<section class="hero-section">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-md-6">
-                <h1 class="display-4 fw-bold">Welcome to MyShop</h1>
-                <p class="lead">Your one-stop digital marketplace for Hardware, Products, and Apps. Discover innovative solutions tailored to meet your business needs.</p>
-                <div class="d-flex gap-3 mt-4">
-                    <a href="/products" class="btn btn-light btn-lg">Browse Products</a>
-                    <a href="/plans" class="btn btn-outline-light btn-lg">View Plans</a>
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">
+                    مرحباً بك في 
+                    <span class="text-warning">MyShop</span>
+                </h1>
+                <p class="lead mb-5">
+                    منصة التجارة الإلكترونية الرائدة التي تجمع بين أفضل المنتجات وأحدث التقنيات لتوفير تجربة تسوق استثنائية.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="/products" class="btn btn-warning btn-lg rounded-pill px-5">
+                        <i class="oi oi-grid-three-up me-2"></i>
+                        تصفح المنتجات
+                    </a>
+                    <a href="/plans" class="btn btn-outline-light btn-lg rounded-pill px-5">
+                        <i class="oi oi-list-rich me-2"></i>
+                        عرض الباقات
+                    </a>
                 </div>
             </div>
-            <div class="col-md-6">
-                <img src="/images/hero-image.svg" alt="Digital Marketplace" class="img-fluid" style="max-height: 400px;">
+            <div class="col-lg-6 text-center">
+                <div class="hero-image">
+                    <i class="oi oi-cart display-1 text-warning opacity-75"></i>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
-<div class="container mt-5">
-    <div class="row text-center">
-        <div class="col-12">
-            <h2>Explore Our Categories</h2>
-            <p class="text-muted">Choose from our carefully curated selection of solutions</p>
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="display-5 fw-bold text-gradient mb-3">لماذا تختار MyShop؟</h2>
+                <p class="lead text-muted">نحن نقدم أفضل الخدمات والمنتجات لضمان رضاك التام</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 text-center border-0 shadow-soft">
+                    <div class="card-body p-4">
+                        <div class="feature-icon mb-3">
+                            <i class="oi oi-shield text-primary display-4"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">أمان موثوق</h5>
+                        <p class="card-text text-muted">
+                            حماية كاملة لبياناتك الشخصية ومعاملاتك المالية بأحدث تقنيات الأمان
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 text-center border-0 shadow-soft">
+                    <div class="card-body p-4">
+                        <div class="feature-icon mb-3">
+                            <i class="oi oi-flash text-warning display-4"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">سرعة في التوصيل</h5>
+                        <p class="card-text text-muted">
+                            توصيل سريع وموثوق لجميع المنتجات مع إمكانية تتبع الطلب لحظة بلحظة
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 text-center border-0 shadow-soft">
+                    <div class="card-body p-4">
+                        <div class="feature-icon mb-3">
+                            <i class="oi oi-headphones text-success display-4"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">دعم متميز</h5>
+                        <p class="card-text text-muted">
+                            فريق دعم فني متاح 24/7 لمساعدتك في أي وقت وحل جميع استفساراتك
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</section>
+
+<!-- Products Preview Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="display-5 fw-bold text-gradient mb-3">منتجاتنا المميزة</h2>
+                <p class="lead text-muted">اكتشف مجموعة متنوعة من المنتجات عالية الجودة</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="card product-card h-100">
+                    <div class="card-img-top bg-primary d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="oi oi-laptop text-white display-3"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">الكترونيات</h5>
+                        <p class="card-text text-muted">أحدث الأجهزة الإلكترونية والتقنية</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge bg-warning text-dark">جديد</span>
+                            <a href="/products" class="btn btn-outline-primary btn-sm rounded-pill">عرض المزيد</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card product-card h-100">
+                    <div class="card-img-top bg-success d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="oi oi-home text-white display-3"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">المنزل والحديقة</h5>
+                        <p class="card-text text-muted">كل ما تحتاجه لمنزل مثالي</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge bg-info">شائع</span>
+                            <a href="/products" class="btn btn-outline-primary btn-sm rounded-pill">عرض المزيد</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card product-card h-100">
+                    <div class="card-img-top bg-warning d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="oi oi-briefcase text-white display-3"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">الأعمال والمكاتب</h5>
+                        <p class="card-text text-muted">أدوات ومعدات الأعمال الاحترافية</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge bg-primary">مميز</span>
+                            <a href="/products" class="btn btn-outline-primary btn-sm rounded-pill">عرض المزيد</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-5">
+            <a href="/products" class="btn btn-primary btn-lg rounded-pill px-5">
+                <i class="oi oi-grid-three-up me-2"></i>
+                عرض جميع المنتجات
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-5 bg-gradient text-white">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stats-item">
+                    <h3 class="display-4 fw-bold text-warning">1000+</h3>
+                    <p class="lead">منتج متاح</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stats-item">
+                    <h3 class="display-4 fw-bold text-warning">500+</h3>
+                    <p class="lead">عميل راضي</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stats-item">
+                    <h3 class="display-4 fw-bold text-warning">24/7</h3>
+                    <p class="lead">دعم فني</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stats-item">
+                    <h3 class="display-4 fw-bold text-warning">99%</h3>
+                    <p class="lead">معدل الرضا</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <div class="card border-0 shadow-soft rounded-xxl">
+                    <div class="card-body p-5">
+                        <h2 class="display-5 fw-bold text-gradient mb-4">هل أنت مستعد للبدء؟</h2>
+                        <p class="lead text-muted mb-4">
+                            انضم إلى آلاف العملاء الراضين واستمتع بتجربة تسوق لا تُنسى
+                        </p>
+                        <div class="d-flex flex-wrap justify-content-center gap-3">
+                            <a href="/signup" class="btn btn-primary btn-lg rounded-pill px-5">
+                                <i class="oi oi-account-login me-2"></i>
+                                إنشاء حساب
+                            </a>
+                            <a href="/plans" class="btn btn-outline-primary btn-lg rounded-pill px-5">
+                                <i class="oi oi-list-rich me-2"></i>
+                                اختر باقتك
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.hero-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+.feature-icon {
+    margin: 0 auto;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.stats-item {
+    padding: 2rem 1rem;
+}
+
+.product-card {
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+@@media (max-width: 768px) {
+    .hero-section {
+        min-height: 60vh;
+        text-align: center;
+    }
     
-    <div class="row mt-4">
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 text-center">
-                <div class="card-body">
-                    <div class="display-1 text-primary mb-3">
-                        <i class="oi oi-hard-drive"></i>
-                    </div>
-                    <h4>Hardware</h4>
-                    <p class="card-text">Diverse array of physical products tailored to meet various needs.</p>
-                    <a href="/products/Hardware" class="btn btn-primary">Explore Hardware</a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 text-center">
-                <div class="card-body">
-                    <div class="display-1 text-primary mb-3">
-                        <i class="oi oi-cloud-download"></i>
-                    </div>
-                    <h4>Products</h4>
-                    <p class="card-text">Digital offerings including software solutions, digital downloads, and virtual goods.</p>
-                    <a href="/products/Products" class="btn btn-primary">Browse Products</a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 text-center">
-                <div class="card-body">
-                    <div class="display-1 text-primary mb-3">
-                        <i class="oi oi-phone"></i>
-                    </div>
-                    <h4>Apps</h4>
-                    <p class="card-text">Vibrant assortment of software applications spanning across platforms and functionalities.</p>
-                    <a href="/products/Apps" class="btn btn-primary">View Apps</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+    .display-4 {
+        font-size: 2.5rem;
+    }
+    
+    .stats-item {
+        padding: 1rem;
+    }
+}
+</style>
