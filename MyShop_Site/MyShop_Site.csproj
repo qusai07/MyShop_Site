@@ -1,4 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -7,13 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Interface\Repositories\" />
-    <Folder Include="Application\Interface\Services\" />
-    <Folder Include="Application\Models\DTOs\" />
-    <Folder Include="Application\Models\ViewModels\" />
-    <Folder Include="Application\Services\" />
-    <Folder Include="Infostructure\Configration\" />
-    <Folder Include="Infostructure\Master\" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.20" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.20" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.20" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Server" Version="7.0.20" />
   </ItemGroup>
 
 </Project>
