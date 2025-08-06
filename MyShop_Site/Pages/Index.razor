@@ -1,34 +1,34 @@
-
 @page "/"
+@inject IStringLocalizer<SharedResource> Localizer
 
-<PageTitle>الرئيسية - MyShop</PageTitle>
+<PageTitle>@Localizer["MyShop"] - الرئيسية</PageTitle>
 
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
-                <h1 class="display-4 fw-bold mb-4">
-                    مرحباً بك في 
-                    <span class="text-warning">MyShop</span>
-                </h1>
-                <p class="lead mb-5">
-                    منصة التجارة الإلكترونية الرائدة التي تجمع بين أفضل المنتجات وأحدث التقنيات لتوفير تجربة تسوق استثنائية.
-                </p>
-                <div class="d-flex flex-wrap gap-3">
-                    <a href="/products" class="btn btn-warning btn-lg rounded-pill px-5">
-                        <i class="oi oi-grid-three-up me-2"></i>
-                        تصفح المنتجات
-                    </a>
-                    <a href="/plans" class="btn btn-outline-light btn-lg rounded-pill px-5">
-                        <i class="oi oi-list-rich me-2"></i>
-                        عرض الباقات
-                    </a>
+                <div class="hero-content">
+                    <h1 class="display-4 title-arabic mb-4">@Localizer["WelcomeMessage"]</h1>
+                    <p class="lead arabic-text mb-5">
+                        اكتشف مجموعة واسعة من المنتجات عالية الجودة والخدمات المتميزة في مكان واحد. 
+                        نحن هنا لنجعل تجربة التسوق الإلكتروني أسهل وأكثر متعة لك.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="/products" class="btn btn-primary btn-lg me-3">
+                            <i class="oi oi-basket"></i> @Localizer["GetStarted"]
+                        </a>
+                        <a href="/plans" class="btn btn-outline-light btn-lg">
+                            @Localizer["LearnMore"]
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-6 text-center">
-                <div class="hero-image">
-                    <i class="oi oi-cart display-1 text-warning opacity-75"></i>
+            <div class="col-lg-6">
+                <div class="hero-image text-center">
+                    <div class="feature-icon" style="width: 200px; height: 200px; font-size: 4rem; margin: 0 auto;">
+                        <i class="oi oi-cart"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -36,183 +36,88 @@
 </section>
 
 <!-- Features Section -->
-<section class="py-5">
-    <div class="container">
-        <div class="row text-center mb-5">
-            <div class="col-12">
-                <h2 class="display-5 fw-bold text-gradient mb-3">لماذا تختار MyShop؟</h2>
-                <p class="lead text-muted">نحن نقدم أفضل الخدمات والمنتجات لضمان رضاك التام</p>
-            </div>
-        </div>
-        
-        <div class="row g-4">
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 text-center border-0 shadow-soft">
-                    <div class="card-body p-4">
-                        <div class="feature-icon mb-3">
-                            <i class="oi oi-shield text-primary display-4"></i>
-                        </div>
-                        <h5 class="card-title fw-bold">أمان موثوق</h5>
-                        <p class="card-text text-muted">
-                            حماية كاملة لبياناتك الشخصية ومعاملاتك المالية بأحدث تقنيات الأمان
-                        </p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 text-center border-0 shadow-soft">
-                    <div class="card-body p-4">
-                        <div class="feature-icon mb-3">
-                            <i class="oi oi-flash text-warning display-4"></i>
-                        </div>
-                        <h5 class="card-title fw-bold">سرعة في التوصيل</h5>
-                        <p class="card-text text-muted">
-                            توصيل سريع وموثوق لجميع المنتجات مع إمكانية تتبع الطلب لحظة بلحظة
-                        </p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 text-center border-0 shadow-soft">
-                    <div class="card-body p-4">
-                        <div class="feature-icon mb-3">
-                            <i class="oi oi-headphones text-success display-4"></i>
-                        </div>
-                        <h5 class="card-title fw-bold">دعم متميز</h5>
-                        <p class="card-text text-muted">
-                            فريق دعم فني متاح 24/7 لمساعدتك في أي وقت وحل جميع استفساراتك
-                        </p>
-                    </div>
-                </div>
-            </div>
+<section class="container my-5">
+    <div class="row text-center mb-5">
+        <div class="col-12">
+            <h2 class="title-arabic">لماذا تختار متجرنا؟</h2>
+            <p class="lead arabic-text text-muted">نقدم لك تجربة تسوق فريدة ومميزة</p>
         </div>
     </div>
-</section>
 
-<!-- Products Preview Section -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="row text-center mb-5">
-            <div class="col-12">
-                <h2 class="display-5 fw-bold text-gradient mb-3">منتجاتنا المميزة</h2>
-                <p class="lead text-muted">اكتشف مجموعة متنوعة من المنتجات عالية الجودة</p>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="feature-card slide-up">
+                <div class="feature-icon">
+                    <i class="oi oi-shield"></i>
+                </div>
+                <h4 class="title-arabic">أمان وموثوقية</h4>
+                <p class="arabic-text">نحمي معلوماتك الشخصية ونضمن أمان عمليات الشراء</p>
             </div>
         </div>
-        
-        <div class="row g-4">
-            <div class="col-lg-4 col-md-6">
-                <div class="card product-card h-100">
-                    <div class="card-img-top bg-primary d-flex align-items-center justify-content-center" style="height: 200px;">
-                        <i class="oi oi-laptop text-white display-3"></i>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">الكترونيات</h5>
-                        <p class="card-text text-muted">أحدث الأجهزة الإلكترونية والتقنية</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="badge bg-warning text-dark">جديد</span>
-                            <a href="/products" class="btn btn-outline-primary btn-sm rounded-pill">عرض المزيد</a>
-                        </div>
-                    </div>
+
+        <div class="col-md-4">
+            <div class="feature-card slide-up">
+                <div class="feature-icon">
+                    <i class="oi oi-clock"></i>
                 </div>
-            </div>
-            
-            <div class="col-lg-4 col-md-6">
-                <div class="card product-card h-100">
-                    <div class="card-img-top bg-success d-flex align-items-center justify-content-center" style="height: 200px;">
-                        <i class="oi oi-home text-white display-3"></i>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">المنزل والحديقة</h5>
-                        <p class="card-text text-muted">كل ما تحتاجه لمنزل مثالي</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="badge bg-info">شائع</span>
-                            <a href="/products" class="btn btn-outline-primary btn-sm rounded-pill">عرض المزيد</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-4 col-md-6">
-                <div class="card product-card h-100">
-                    <div class="card-img-top bg-warning d-flex align-items-center justify-content-center" style="height: 200px;">
-                        <i class="oi oi-briefcase text-white display-3"></i>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">الأعمال والمكاتب</h5>
-                        <p class="card-text text-muted">أدوات ومعدات الأعمال الاحترافية</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="badge bg-primary">مميز</span>
-                            <a href="/products" class="btn btn-outline-primary btn-sm rounded-pill">عرض المزيد</a>
-                        </div>
-                    </div>
-                </div>
+                <h4 class="title-arabic">توصيل سريع</h4>
+                <p class="arabic-text">خدمة توصيل سريعة وموثوقة لجميع أنحاء المملكة</p>
             </div>
         </div>
-        
-        <div class="text-center mt-5">
-            <a href="/products" class="btn btn-primary btn-lg rounded-pill px-5">
-                <i class="oi oi-grid-three-up me-2"></i>
-                عرض جميع المنتجات
-            </a>
+
+        <div class="col-md-4">
+            <div class="feature-card slide-up">
+                <div class="feature-icon">
+                    <i class="oi oi-people"></i>
+                </div>
+                <h4 class="title-arabic">دعم عملاء 24/7</h4>
+                <p class="arabic-text">فريق دعم متخصص متواجد لمساعدتك في أي وقت</p>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- Stats Section -->
-<section class="py-5 bg-gradient text-white">
+<section class="bg-gradient text-white py-5 my-5">
     <div class="container">
         <div class="row text-center">
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="stats-item">
-                    <h3 class="display-4 fw-bold text-warning">1000+</h3>
-                    <p class="lead">منتج متاح</p>
-                </div>
+            <div class="col-md-3">
+                <h3 class="title-arabic">+10000</h3>
+                <p>منتج متاح</p>
             </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="stats-item">
-                    <h3 class="display-4 fw-bold text-warning">500+</h3>
-                    <p class="lead">عميل راضي</p>
-                </div>
+            <div class="col-md-3">
+                <h3 class="title-arabic">+5000</h3>
+                <p>عميل راضٍ</p>
             </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="stats-item">
-                    <h3 class="display-4 fw-bold text-warning">24/7</h3>
-                    <p class="lead">دعم فني</p>
-                </div>
+            <div class="col-md-3">
+                <h3 class="title-arabic">+50</h3>
+                <p>مدينة نخدمها</p>
             </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="stats-item">
-                    <h3 class="display-4 fw-bold text-warning">99%</h3>
-                    <p class="lead">معدل الرضا</p>
-                </div>
+            <div class="col-md-3">
+                <h3 class="title-arabic">24/7</h3>
+                <p>خدمة عملاء</p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- CTA Section -->
-<section class="py-5">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
-                <div class="card border-0 shadow-soft rounded-xxl">
-                    <div class="card-body p-5">
-                        <h2 class="display-5 fw-bold text-gradient mb-4">هل أنت مستعد للبدء؟</h2>
-                        <p class="lead text-muted mb-4">
-                            انضم إلى آلاف العملاء الراضين واستمتع بتجربة تسوق لا تُنسى
-                        </p>
-                        <div class="d-flex flex-wrap justify-content-center gap-3">
-                            <a href="/signup" class="btn btn-primary btn-lg rounded-pill px-5">
-                                <i class="oi oi-account-login me-2"></i>
-                                إنشاء حساب
-                            </a>
-                            <a href="/plans" class="btn btn-outline-primary btn-lg rounded-pill px-5">
-                                <i class="oi oi-list-rich me-2"></i>
-                                اختر باقتك
-                            </a>
-                        </div>
+<section class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-medium text-center p-5">
+                <div class="card-body">
+                    <h3 class="title-arabic mb-4">ابدأ رحلة التسوق الآن</h3>
+                    <p class="lead arabic-text mb-4">
+                        انضم إلى آلاف العملاء الراضين واستمتع بتجربة تسوق لا تُنسى
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="/signup" class="btn btn-primary btn-lg me-3">
+                            <i class="oi oi-account-login"></i> @Localizer["SignUp"]
+                        </a>
+                        <a href="/products" class="btn btn-outline-primary btn-lg">
+                            <i class="oi oi-eye"></i> تصفح المنتجات
+                        </a>
                     </div>
                 </div>
             </div>
@@ -221,49 +126,227 @@
 </section>
 
 <style>
-.hero-section {
-    min-height: 80vh;
-    display: flex;
-    align-items: center;
-}
-
-.feature-icon {
-    margin: 0 auto;
-    width: 80px;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: rgba(102, 126, 234, 0.1);
-}
-
-.stats-item {
-    padding: 2rem 1rem;
-}
-
-.product-card {
-    border: none;
-    transition: all 0.3s ease;
-}
-
-.product-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-}
-
-@@media (max-width: 768px) {
     .hero-section {
-        min-height: 60vh;
-        text-align: center;
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 4rem 0;
     }
-    
-    .display-4 {
+
+    .hero-content h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: #ffffff;
+    }
+
+    .hero-content p {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero-buttons .btn {
+        margin-top: 1rem;
+        padding: 0.8rem 1.8rem;
+        font-size: 1.1rem;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+    }
+
+    .hero-buttons .btn-primary {
+        background-color: #FFC107;
+        border-color: #FFC107;
+        color: #333;
+    }
+
+    .hero-buttons .btn-primary:hover {
+        background-color: #e0a800;
+        border-color: #e0a800;
+    }
+
+    .hero-buttons .btn-outline-light {
+        border-color: #ffffff;
+        color: #ffffff;
+    }
+
+    .hero-buttons .btn-outline-light:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-color: #ffffff;
+    }
+
+    .hero-image {
+        margin-top: 3rem;
+    }
+
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: rgba(255, 193, 7, 0.2); /* Yellowish tint */
+        margin-bottom: 1.5rem;
+        color: #FFC107; /* Yellow icon color */
         font-size: 2.5rem;
     }
-    
-    .stats-item {
-        padding: 1rem;
+
+    .feature-card {
+        text-align: center;
+        padding: 2rem;
+        border: none;
+        border-radius: 15px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background-color: #ffffff;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     }
-}
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-card h4 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: #333;
+    }
+
+    .feature-card p {
+        font-size: 1rem;
+        color: #6c757d;
+        line-height: 1.7;
+    }
+
+    .bg-gradient {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .stats-item h3 {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #FFC107; /* Yellow for emphasis */
+    }
+
+    .stats-item p {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .card.shadow-medium {
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .cta-buttons .btn {
+        margin-top: 1rem;
+        padding: 0.8rem 1.8rem;
+        font-size: 1.1rem;
+        border-radius: 30px;
+    }
+
+    .cta-buttons .btn-primary {
+        background-color: #28a745; /* Green for primary CTA */
+        border-color: #28a745;
+    }
+
+    .cta-buttons .btn-primary:hover {
+        background-color: #218838;
+        border-color: #218838;
+    }
+
+    .cta-buttons .btn-outline-primary {
+        border-color: #28a745;
+        color: #28a745;
+    }
+
+    .cta-buttons .btn-outline-primary:hover {
+        background-color: #28a745;
+        color: white;
+    }
+
+    /* Arabic specific styles */
+    .title-arabic {
+        font-family: 'Cairo', sans-serif; /* Assuming Cairo font is available or will be added */
+    }
+
+    .arabic-text {
+        font-family: 'Cairo', sans-serif;
+        line-height: 1.9; /* Increased line height for readability in Arabic */
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 992px) {
+        .hero-section {
+            padding: 3rem 0;
+            min-height: 70vh;
+        }
+        .hero-content h1 {
+            font-size: 2.8rem;
+        }
+        .hero-image {
+            margin-top: 2rem;
+        }
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            font-size: 2rem;
+        }
+        .feature-card {
+            padding: 1.5rem;
+        }
+        .stats-item h3 {
+            font-size: 2.5rem;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .hero-section {
+            text-align: center;
+            min-height: 60vh;
+        }
+        .hero-buttons {
+            justify-content: center;
+        }
+        .feature-card {
+            margin-bottom: 2rem;
+        }
+        .stats-item {
+            margin-bottom: 1.5rem;
+        }
+        .stats-item h3, .stats-item p {
+            text-align: center;
+        }
+        .cta-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+        .cta-buttons .btn {
+            width: 80%;
+            margin-top: 0.5rem;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .hero-content h1 {
+            font-size: 2.2rem;
+        }
+        .hero-content p {
+            font-size: 1rem;
+        }
+        .hero-buttons .btn, .cta-buttons .btn {
+            font-size: 1rem;
+            padding: 0.7rem 1.5rem;
+        }
+        .stats-item h3 {
+            font-size: 2rem;
+        }
+        .stats-item p {
+            font-size: 0.9rem;
+        }
+    }
 </style>

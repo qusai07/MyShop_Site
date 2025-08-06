@@ -1,23 +1,25 @@
-
 @page "/signup"
 @using MyShop_Site.Models
 @using System.ComponentModel.DataAnnotations
 @inject NavigationManager Navigation
 @inject IJSRuntime JSRuntime
+@using Microsoft.Extensions.Localization
 
-<PageTitle>Sign Up - MyShop</PageTitle>
+@inject IStringLocalizer<MyShop_Site.Pages.Signup> Localizer
+
+<PageTitle>@Localizer["Sign Up - MyShop"]</PageTitle>
 
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="text-center">Create Your Account</h3>
+                    <h3 class="text-center">@Localizer["Create Your Account"]</h3>
                 </div>
                 <div class="card-body">
                     <EditForm Model="signupModel" OnValidSubmit="HandleSignup">
                         <DataAnnotationsValidator />
-                        
+
                         @if (!string.IsNullOrEmpty(errorMessage))
                         {
                             <div class="alert alert-danger">@errorMessage</div>
@@ -25,12 +27,12 @@
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Company Name *</label>
+                                <label class="form-label">@Localizer["Company Name"] *</label>
                                 <InputText @bind-Value="signupModel.CompanyName" class="form-control" />
                                 <ValidationMessage For="() => signupModel.CompanyName" />
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Contact Name *</label>
+                                <label class="form-label">@Localizer["Contact Name"] *</label>
                                 <InputText @bind-Value="signupModel.ContactName" class="form-control" />
                                 <ValidationMessage For="() => signupModel.ContactName" />
                             </div>
@@ -38,12 +40,12 @@
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Contact Email *</label>
+                                <label class="form-label">@Localizer["Contact Email"] *</label>
                                 <InputText @bind-Value="signupModel.ContactEmail" class="form-control" type="email" />
                                 <ValidationMessage For="() => signupModel.ContactEmail" />
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Phone Number *</label>
+                                <label class="form-label">@Localizer["Phone Number"] *</label>
                                 <InputText @bind-Value="signupModel.ContactPhoneNumber" class="form-control" type="tel" />
                                 <ValidationMessage For="() => signupModel.ContactPhoneNumber" />
                             </div>
@@ -51,50 +53,50 @@
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Country *</label>
+                                <label class="form-label">@Localizer["Country"] *</label>
                                 <InputSelect @bind-Value="signupModel.Country" class="form-select">
-                                    <option value="">Select Country</option>
+                                    <option value="">@Localizer["Select Country"]</option>
                                     @foreach (var country in countries)
                                     {
-                                        <option value="@country">@country</option>
+                                        <option value="@country">@Localizer[country]</option>
                                     }
                                 </InputSelect>
                                 <ValidationMessage For="() => signupModel.Country" />
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Company Size *</label>
+                                <label class="form-label">@Localizer["Company Size"] *</label>
                                 <InputSelect @bind-Value="signupModel.CompanySize" class="form-select">
-                                    <option value="">Select Company Size</option>
-                                    <option value="< 5 employees">< 5 employees</option>
-                                    <option value="5 - 20 employees">5 - 20 employees</option>
-                                    <option value="20 - 50 employees" selected>20 - 50 employees</option>
-                                    <option value="50 - 250 employees">50 - 250 employees</option>
-                                    <option value="250+ employees">250+ employees</option>
+                                    <option value="">@Localizer["Select Company Size"]</option>
+                                    <option value="< 5 employees">@Localizer["< 5 employees"]</option>
+                                    <option value="5 - 20 employees">@Localizer["5 - 20 employees"]</option>
+                                    <option value="20 - 50 employees">@Localizer["20 - 50 employees"]</option>
+                                    <option value="50 - 250 employees">@Localizer["50 - 250 employees"]</option>
+                                    <option value="250+ employees">@Localizer["250+ employees"]</option>
                                 </InputSelect>
                                 <ValidationMessage For="() => signupModel.CompanySize" />
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Industry</label>
+                            <label class="form-label">@Localizer["Industry"]</label>
                             <InputSelect @bind-Value="signupModel.Industry" class="form-select">
-                                <option value="">Select Industry (Optional)</option>
+                                <option value="">@Localizer["Select Industry (Optional)"]</option>
                                 @foreach (var industry in industries)
                                 {
-                                    <option value="@industry">@industry</option>
+                                    <option value="@industry">@Localizer[industry]</option>
                                 }
                             </InputSelect>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Username *</label>
+                            <label class="form-label">@Localizer["Username"] *</label>
                             <InputText @bind-Value="signupModel.Username" class="form-control" />
                             <ValidationMessage For="() => signupModel.Username" />
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Password *</label>
+                                <label class="form-label">@Localizer["Password"] *</label>
                                 <div class="input-group">
                                     <InputText @bind-Value="signupModel.Password" class="form-control" type="@(showPassword ? "text" : "password")" />
                                     <button class="btn btn-outline-secondary" type="button" @onclick="TogglePasswordVisibility">
@@ -104,7 +106,7 @@
                                 <ValidationMessage For="() => signupModel.Password" />
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Confirm Password *</label>
+                                <label class="form-label">@Localizer["Confirm Password"] *</label>
                                 <div class="input-group">
                                     <InputText @bind-Value="signupModel.ConfirmPassword" class="form-control" type="@(showConfirmPassword ? "text" : "password")" />
                                     <button class="btn btn-outline-secondary" type="button" @onclick="ToggleConfirmPasswordVisibility">
@@ -119,7 +121,7 @@
                             <div class="form-check">
                                 <InputCheckbox @bind-Value="signupModel.AcceptTerms" class="form-check-input" id="termsCheck" />
                                 <label class="form-check-label" for="termsCheck">
-                                    I have read and agree to the <a href="/terms" target="_blank">Terms and Conditions</a> and <a href="/privacy" target="_blank">Privacy Policy</a>. *
+                                    @Localizer["I have read and agree to the"] <a href="/terms" target="_blank">@Localizer["Terms and Conditions"]</a> @Localizer["and"] <a href="/privacy" target="_blank">@Localizer["Privacy Policy"]</a>. *
                                 </label>
                             </div>
                             <ValidationMessage For="() => signupModel.AcceptTerms" />
@@ -131,7 +133,7 @@
                                 {
                                     <span class="spinner-border spinner-border-sm me-2"></span>
                                 }
-                                Sign Up
+                                @Localizer["Sign Up"]
                             </button>
                         </div>
                     </EditForm>
@@ -148,6 +150,8 @@
     private bool isSubmitting = false;
     private string errorMessage = "";
 
+    // Placeholder for actual localization strings
+    // In a real app, these would be in resource files (e.g., Signup.ar.resx)
     private List<string> countries = new List<string>
     {
         "United States", "Canada", "United Kingdom", "Germany", "France", "Australia", "Japan", "India", "China", "Brazil"
@@ -192,19 +196,19 @@
             // Validate passwords match
             if (signupModel.Password != signupModel.ConfirmPassword)
             {
-                errorMessage = "Passwords do not match.";
+                errorMessage = Localizer["Passwords do not match."];
                 return;
             }
 
             // Here you would typically save to database
             // For now, just navigate to plan selection
             await Task.Delay(1000); // Simulate API call
-            
+
             Navigation.NavigateTo("/plans");
         }
         catch (Exception ex)
         {
-            errorMessage = "An error occurred during sign up. Please try again.";
+            errorMessage = Localizer["An error occurred during sign up. Please try again."];
         }
         finally
         {
