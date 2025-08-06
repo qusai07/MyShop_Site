@@ -1,4 +1,3 @@
-
 @page "/success"
 @inject NavigationManager Navigation
 
@@ -35,153 +34,31 @@
                 </div>
             </div>
 
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5>What's Next?</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <div class="d-flex align-items-start">
-                                <div class="me-3">
-                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                        <span class="fw-bold">1</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h6>Access Your Dashboard</h6>
-                                    <p class="mb-0">Log in to your account dashboard to manage your subscription and settings.</p>
-                                    <button class="btn btn-outline-primary btn-sm mt-2" @onclick="() => GoToDashboard()">
-                                        Go to Dashboard
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-6 mb-3">
-                            <div class="d-flex align-items-start">
-                                <div class="me-3">
-                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                        <span class="fw-bold">2</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h6>Complete Onboarding</h6>
-                                    <p class="mb-0">Follow our step-by-step guide to set up your account and get started.</p>
-                                    <button class="btn btn-outline-primary btn-sm mt-2" @onclick="() => StartOnboarding()">
-                                        Start Onboarding
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <div class="d-flex align-items-start">
-                                <div class="me-3">
-                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                        <span class="fw-bold">3</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h6>Visit MyShop Portal</h6>
-                                    <p class="mb-0">Access the full MyShop portal with all your tools and resources.</p>
-                                    <button class="btn btn-outline-primary btn-sm mt-2" @onclick="() => GoToPortal()">
-                                        Open Portal
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-6 mb-3">
-                            <div class="d-flex align-items-start">
-                                <div class="me-3">
-                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                        <span class="fw-bold">4</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h6>Download Mobile App</h6>
-                                    <p class="mb-0">Get the MyShop mobile app for iOS and Android devices.</p>
-                                    <div class="mt-2">
-                                        @*<button class="btn btn-outline-primary btn-sm me-2" @onclick="@(() => DownloadApp(\"ios\"))">
-                                            <i class="oi oi-phone"></i> iOS
-                                        </button>
-                                        <button class="btn btn-outline-primary btn-sm" @onclick="@(() => DownloadApp(\"android\"))">
-                                            <i class="oi oi-phone"></i> Android
-                                        </button>*@
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <h5>Need Help?</h5>
-                </div>
-                <div class="card-body">
-                    <p>Our customer support team is here to help you get started. Contact us if you have any questions.</p>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <p><i class="oi oi-envelope-closed"></i> <strong>Email:</strong><br>support@myshop.com</p>
-                        </div>
-                        <div class="col-md-4">
-                            <p><i class="oi oi-phone"></i> <strong>Phone:</strong><br>1-800-MYSHOP-1</p>
-                        </div>
-                        <div class="col-md-4">
-                            <p><i class="oi oi-chat"></i> <strong>Live Chat:</strong><br>Available 24/7</p>
-                        </div>
-                    </div>
-                    <button class="btn btn-outline-secondary" @onclick="() => ContactSupport()">
-                        Contact Support
-                    </button>
-                </div>
-            </div>
-
-            <div class="text-center mt-4">
-                <p class="text-muted">
-                    A confirmation email has been sent to your registered email address with all the details.
-                </p>
+            <div class="text-center">
+                <button class="btn btn-primary me-3" @onclick="GoToProducts">
+                    <i class="oi oi-cart"></i> Browse Products
+                </button>
+                <button class="btn btn-outline-primary" @onclick="GoHome">
+                    <i class="oi oi-home"></i> Go to Home
+                </button>
             </div>
         </div>
     </div>
 </div>
 
 @code {
-    [Parameter] [SupplyParameterFromQuery] public string OrderNumber { get; set; } = "";
-    [Parameter] [SupplyParameterFromQuery] public decimal Amount { get; set; }
-    [Parameter] [SupplyParameterFromQuery] public string PlanName { get; set; } = "";
-    [Parameter] [SupplyParameterFromQuery] public bool IsYearly { get; set; }
+    private string PlanName = "Premium Plan";
+    private bool IsYearly = false;
+    private decimal Amount = 29.99m;
+    private string OrderNumber = "ORD-" + DateTime.Now.Ticks.ToString()[^8..];
 
-    private void GoToDashboard()
+    private void GoToProducts()
     {
-        Navigation.NavigateTo("/dashboard");
+        Navigation.NavigateTo("/products");
     }
 
-    private void StartOnboarding()
+    private void GoHome()
     {
-        Navigation.NavigateTo("/onboarding");
-    }
-
-    private void GoToPortal()
-    {
-        Navigation.NavigateTo("https://portal.myshop.com", true);
-    }
-
-    private void DownloadApp(string platform)
-    {
-        var url = platform == "ios" 
-            ? "https://apps.apple.com/app/myshop" 
-            : "https://play.google.com/store/apps/details?id=com.myshop.app";
-        Navigation.NavigateTo(url, true);
-    }
-
-    private void ContactSupport()
-    {
-        Navigation.NavigateTo("/support");
+        Navigation.NavigateTo("/");
     }
 }

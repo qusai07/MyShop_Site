@@ -1,48 +1,32 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using MyShop_Site.Data;
-using MyShopSite.Startup;
-using Microsoft.AspNetCore.Localization;
-using System.Globalization;
+using MyShop_Site.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddCoresPolicies();
-builder.Services.AddApplicationServices();
-
-// Add Localization
-builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
-builder.Services.Configure<RequestLocalizationOptions>(options =>
-{
-    var supportedCultures = new[]
-    {
-        new CultureInfo("ar"),
-        new CultureInfo("en")
-    };
-    
-    options.DefaultRequestCulture = new RequestCulture("ar");
-    options.SupportedCultures = supportedCultures;
-    options.SupportedUICultures = supportedCultures;
-});
-
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
-builder.Services.AddScoped<MyShop_Site.Services.ProductService>();
-builder.Services.AddScoped<MyShop_Site.Services.PlanService>();
+builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<PlanService>();
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
+}
 
-
-app.UseGlobalMiddleware();
-app.UseRequestLocalization();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+app.MapRazorPages();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
-app.Run();
+app.Run("http://0.0.0.0:5000");

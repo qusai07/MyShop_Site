@@ -1,136 +1,17 @@
-@inherits LayoutComponentBase
+@inherits LayoutView
 
-@using MyShop_Site.Shared
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
 
-<div class="main-wrapper">
-    <!-- Header Navigation -->
-    <header class="navbar navbar-expand-lg navbar-dark bg-gradient-primary shadow-sm fixed-top">
-        <div class="container">
-            <!-- Brand Logo -->
-            <a class="navbar-brand fw-bold fs-3" href="/">
-                <i class="oi oi-cart text-warning me-2"></i>
-                MyShop
-            </a>
-
-            <!-- Mobile Toggle Button -->
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <!-- Navigation Links -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <nav class="navbar-nav me-auto">
-                    <a class="nav-link px-3 rounded-pill mx-1" href="/">
-                        <i class="oi oi-home me-1"></i>
-                        الرئيسية
-                    </a>
-                    <a class="nav-link px-3 rounded-pill mx-1" href="/products">
-                        <i class="oi oi-grid-three-up me-1"></i>
-                        المنتجات
-                    </a>
-                    <a class="nav-link px-3 rounded-pill mx-1" href="/plans">
-                        <i class="oi oi-list-rich me-1"></i>
-                        الباقات
-                    </a>
-                    <a class="nav-link px-3 rounded-pill mx-1" href="/addons">
-                        <i class="oi oi-plus me-1"></i>
-                        الإضافات
-                    </a>
-                </nav>
-
-                <!-- Right Side Actions -->
-                <div class="navbar-nav">
-                    <a class="nav-link px-3 rounded-pill mx-1" href="/signup">
-                        <i class="oi oi-account-login me-1"></i>
-                        تسجيل دخول
-                    </a>
-                    <a class="btn btn-warning rounded-pill px-4 mx-2" href="/payment">
-                        <i class="oi oi-credit-card me-1"></i>
-                        اشترك الآن
-                    </a>
-                </div>
-            </div>
+    <main>
+        <div class="top-row px-4">
+            <span class="text-white">MyShop - E-Commerce Platform</span>
         </div>
-    </header>
 
-    <!-- Main Content Area -->
-    <main class="main-content">
-        <div class="content-wrapper">
+        <article class="content px-4">
             @Body
-        </div>
+        </article>
     </main>
-
-    <!-- Footer -->
-    <footer class="footer bg-dark text-light py-5 mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 mb-4">
-                    <h5 class="text-warning mb-3">
-                        <i class="oi oi-cart me-2"></i>
-                        MyShop
-                    </h5>
-                    <p class="text-muted">
-                        منصة التجارة الإلكترونية الرائدة التي توفر أفضل المنتجات والخدمات لعملائنا الكرام.
-                    </p>
-                    <div class="social-links">
-                        <a href="#" class="text-warning me-3">
-                            <i class="oi oi-share"></i>
-                        </a>
-                        <a href="#" class="text-warning me-3">
-                            <i class="oi oi-envelope-closed"></i>
-                        </a>
-                        <a href="#" class="text-warning">
-                            <i class="oi oi-phone"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-6 mb-4">
-                    <h6 class="text-warning mb-3">روابط سريعة</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="/" class="text-muted text-decoration-none">الرئيسية</a></li>
-                        <li><a href="/products" class="text-muted text-decoration-none">المنتجات</a></li>
-                        <li><a href="/plans" class="text-muted text-decoration-none">الباقات</a></li>
-                        <li><a href="/addons" class="text-muted text-decoration-none">الإضافات</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-2 col-md-6 mb-4">
-                    <h6 class="text-warning mb-3">الدعم</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-muted text-decoration-none">مركز المساعدة</a></li>
-                        <li><a href="#" class="text-muted text-decoration-none">اتصل بنا</a></li>
-                        <li><a href="#" class="text-muted text-decoration-none">الأسئلة الشائعة</a></li>
-                        <li><a href="#" class="text-muted text-decoration-none">سياسة الخصوصية</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-4 mb-4">
-                    <h6 class="text-warning mb-3">ابق على تواصل</h6>
-                    <p class="text-muted mb-3">اشترك في نشرتنا الإخبارية للحصول على آخر العروض والتحديثات</p>
-                    <div class="input-group">
-                        <input type="email" class="form-control" placeholder="بريدك الإلكتروني">
-                        <button class="btn btn-warning" type="button">
-                            <i class="oi oi-envelope-closed"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <hr class="my-4 border-secondary">
-
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <p class="text-muted mb-0">
-                        &copy; @DateTime.Now.Year MyShop. جميع الحقوق محفوظة.
-                    </p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <p class="text-muted mb-0">
-                        صنع بـ <i class="oi oi-heart text-danger"></i> في المملكة العربية السعودية
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
 </div>
