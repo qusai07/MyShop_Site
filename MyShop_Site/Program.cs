@@ -12,6 +12,8 @@ builder.Services.AddApplicationServices();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddScoped<MyShop_Site.Services.ProductService>();
+builder.Services.AddScoped<MyShop_Site.Services.PlanService>();
 
 var app = builder.Build();
 

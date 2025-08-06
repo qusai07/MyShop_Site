@@ -1,0 +1,110 @@
+
+@page "/product/{productId:int}"
+@using MyShop_Site.Models
+@using MyShop_Site.Services
+@inject ProductService ProductService
+@inject NavigationManager Navigation
+
+<PageTitle>@product?.Name - MyShop</PageTitle>
+
+@if (product != null)
+{
+    <div class="container mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/products">Products</a></li>
+                <li class="breadcrumb-item"><a href="/products/@product.Category">@product.Category</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@product.Name</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <div class="col-md-6">
+                <img src="@product.ImageUrl" class="img-fluid rounded" alt="@product.Name">
+            </div>
+            <div class="col-md-6">
+                <h1>@product.Name</h1>
+                <p class="lead">@product.Description</p>
+                <h3 class="text-primary">$@product.Price.ToString("F2")</h3>
+                
+                <div class="mt-4">
+                    <button class="btn btn-primary btn-lg" @onclick="PurchaseProduct">
+                        <i class="oi oi-cart"></i> Purchase
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12">
+                <ul class="nav nav-tabs" id="productTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="features-tab" data-bs-toggle="tab" data-bs-target="#features" type="button">Features</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="specs-tab" data-bs-toggle="tab" data-bs-target="#specs" type="button">Specifications</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="shipping-tab" data-bs-toggle="tab" data-bs-target="#shipping" type="button">Shipping</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="security-tab" data-bs-toggle="tab" data-bs-target="#security" type="button">Security</button>
+                    </li>
+                </ul>
+                <div class="tab-content mt-3">
+                    <div class="tab-pane fade show active" id="features">
+                        <h5>Features and Benefits</h5>
+                        <ul class="list-group list-group-flush">
+                            @foreach (var feature in product.Features)
+                            {
+                                <li class="list-group-item">
+                                    <i class="oi oi-check text-success"></i> @feature
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="specs">
+                        <h5>Technical Specifications</h5>
+                        <p>@product.TechnicalSpecifications</p>
+                    </div>
+                    <div class="tab-pane fade" id="shipping">
+                        <h5>Shipping Information</h5>
+                        <p>@product.ShippingInfo</p>
+                        <h5>Return Policy</h5>
+                        <p>@product.ReturnPolicy</p>
+                    </div>
+                    <div class="tab-pane fade" id="security">
+                        <h5>Security and Compliance</h5>
+                        <p>@product.SecurityCompliance</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container mt-4">
+        <div class="alert alert-warning">
+            <h4>Product Not Found</h4>
+            <p>The requested product could not be found.</p>
+            <a href="/products" class="btn btn-primary">Browse Products</a>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public int ProductId { get; set; }
+    
+    private Product? product;
+
+    protected override void OnInitialized()
+    {
+        product = ProductService.GetProductById(ProductId);
+    }
+
+    private void PurchaseProduct()
+    {
+        Navigation.NavigateTo("/signup");
+    }
+}

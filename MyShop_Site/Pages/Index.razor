@@ -1,9 +1,73 @@
-﻿@page "/"
+@page "/"
 
-<PageTitle>Index</PageTitle>
+<PageTitle>MyShop - Your Digital Marketplace</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="hero-section bg-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h1 class="display-4 fw-bold">Welcome to MyShop</h1>
+                <p class="lead">Your one-stop digital marketplace for Hardware, Products, and Apps. Discover innovative solutions tailored to meet your business needs.</p>
+                <div class="d-flex gap-3 mt-4">
+                    <a href="/products" class="btn btn-light btn-lg">Browse Products</a>
+                    <a href="/plans" class="btn btn-outline-light btn-lg">View Plans</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img src="/images/hero-image.svg" alt="Digital Marketplace" class="img-fluid" style="max-height: 400px;">
+            </div>
+        </div>
+    </div>
+</div>
 
-Welcome to your new app.
+<div class="container mt-5">
+    <div class="row text-center">
+        <div class="col-12">
+            <h2>Explore Our Categories</h2>
+            <p class="text-muted">Choose from our carefully curated selection of solutions</p>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <div class="display-1 text-primary mb-3">
+                        <i class="oi oi-hard-drive"></i>
+                    </div>
+                    <h4>Hardware</h4>
+                    <p class="card-text">Diverse array of physical products tailored to meet various needs.</p>
+                    <a href="/products/Hardware" class="btn btn-primary">Explore Hardware</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <div class="display-1 text-primary mb-3">
+                        <i class="oi oi-cloud-download"></i>
+                    </div>
+                    <h4>Products</h4>
+                    <p class="card-text">Digital offerings including software solutions, digital downloads, and virtual goods.</p>
+                    <a href="/products/Products" class="btn btn-primary">Browse Products</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <div class="display-1 text-primary mb-3">
+                        <i class="oi oi-phone"></i>
+                    </div>
+                    <h4>Apps</h4>
+                    <p class="card-text">Vibrant assortment of software applications spanning across platforms and functionalities.</p>
+                    <a href="/products/Apps" class="btn btn-primary">View Apps</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <SurveyPrompt Title="How is Blazor working for you?" />

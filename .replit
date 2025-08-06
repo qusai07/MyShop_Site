@@ -6,3 +6,15 @@ channel = "stable-25_05"
 
 [deployment]
 run = ["sh", "-c", "dotnet run"]
+
+[workflows]
+runButton = "Run MyShop"
+
+[[workflows.workflow]]
+name = "Run MyShop"
+author = 30852656
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "dotnet run --project MyShop_Site"
