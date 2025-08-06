@@ -17,4 +17,4 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "dotnet run --project MyShop_Site"
+args = "dotnet run --project MyShop_Site --urls \"http://0.0.0.0:5000\""
