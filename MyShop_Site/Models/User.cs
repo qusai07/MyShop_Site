@@ -1,4 +1,3 @@
-
 namespace MyShop_Site.Models
 {
     public class User
@@ -6,14 +5,14 @@ namespace MyShop_Site.Models
         public int Id { get; set; }
         public string CompanyName { get; set; } = string.Empty;
         public string ContactName { get; set; } = string.Empty;
-        public string ContactEmail { get; set; } = string.Empty;
-        public string ContactPhone { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string PhoneNumber { get; set; } = string.Empty;
         public string Country { get; set; } = string.Empty;
         public CompanySize CompanySize { get; set; }
         public string Industry { get; set; } = string.Empty;
         public string Username { get; set; } = string.Empty;
-        public string PasswordHash { get; set; } = string.Empty;
-        public DateTime CreatedDate { get; set; }
+        public string Password { get; set; } = string.Empty;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public bool IsActive { get; set; } = true;
     }
 

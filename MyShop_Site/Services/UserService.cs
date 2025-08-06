@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MyShop_Site.Data;
 using MyShop_Site.Models;
+using BCrypt.Net;
 using System.Security.Cryptography;
 using System.Text;
 using BCrypt.Net;
