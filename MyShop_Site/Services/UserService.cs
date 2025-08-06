@@ -25,13 +25,13 @@ namespace MyShop_Site.Services
 
         public async Task<bool> IsEmailAvailableAsync(string email)
         {
-            return !await _context.Users.AnyAsync(u => u.ContactEmail == email);
+            return !await _context.Users.AnyAsync(u => u.Email == email);
         }
 
         public async Task<User> CreateUserAsync(User user, string password)
         {
-            user.PasswordHash = HashPassword(password);
-            user.CreatedDate = DateTime.UtcNow;
+            user.Password = HashPassword(password);
+            user.CreatedAt = DateTime.UtcNow;
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
@@ -44,7 +44,7 @@ namespace MyShop_Site.Services
             var user = await _context.Users
                 .FirstOrDefaultAsync(u => u.Username == username && u.IsActive);
 
-            if (user != null && VerifyPassword(password, user.PasswordHash))
+            if (user != null && VerifyPassword(password, user.Password))
             {
                 return user;
             }
@@ -63,7 +63,7 @@ namespace MyShop_Site.Services
             {
                 // Check if username or email already exists
                 var existingUser = await _context.Users
-                    .FirstOrDefaultAsync(u => u.Username == user.Username || u.ContactEmail == user.ContactEmail);
+                    .FirstOrDefaultAsync(u => u.Username == user.Username || u.Email == user.Email);
 
                 if (existingUser != null)
                 {
@@ -71,8 +71,8 @@ namespace MyShop_Site.Services
                 }
 
                 // Hash password (in production, use proper password hashing)
-                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
-                user.CreatedDate = DateTime.UtcNow;
+                user.Password= BCrypt.Net.BCrypt.HashPassword(user.Password);
+                user.CreatedAt = DateTime.UtcNow;
 
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();

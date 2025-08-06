@@ -3,7 +3,7 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @inject UserService UserService
 @inject NavigationManager Navigation
-@inject CustomAuthenticationStateProvider AuthStateProvider
+@*@inject CustomAuthenticationStateProvider AuthStateProvider*@
 
 <PageTitle>Login - MyShop</PageTitle>
 
@@ -81,7 +81,7 @@
             var user = await UserService.AuthenticateAsync(loginModel.Username, loginModel.Password);
             if (user != null)
             {
-                await AuthStateProvider.MarkUserAsAuthenticatedAsync(user);
+                //await AuthStateProvider.MarkUserAsAuthenticatedAsync(user);
                 Navigation.NavigateTo("/");
             }
             else

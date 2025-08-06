@@ -28,7 +28,7 @@ namespace MyShop_Site.Data
                 .IsUnique();
 
             modelBuilder.Entity<User>()
-                .HasIndex(u => u.ContactEmail)
+                .HasIndex(u => u.Email)
                 .IsUnique();
 
             // Order configuration

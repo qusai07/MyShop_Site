@@ -153,13 +153,13 @@
             {
                 CompanyName = registerModel.CompanyName,
                 ContactName = registerModel.ContactName,
-                ContactEmail = registerModel.ContactEmail,
-                ContactPhone = registerModel.ContactPhone,
+                Email = registerModel.ContactEmail,
+                PhoneNumber = registerModel.ContactPhone,
                 Country = registerModel.Country,
                 CompanySize = Enum.Parse<CompanySize>(registerModel.CompanySize),
                 Industry = registerModel.Industry,
                 Username = registerModel.Username,
-                PasswordHash = registerModel.Password
+                Password = registerModel.Password
             };
 
             var result = await UserService.RegisterAsync(user);
