@@ -1,0 +1,21 @@
+﻿@inherits LayoutComponentBase
+
+<div>
+    <header class="navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand px-3" href="/">MyShopSite</a>
+        <nav class="navbar-nav">
+            <a class="nav-link" href="/categories">Home</a>
+            <a class="nav-link" href="/categories">Categories</a>
+            <a class="nav-link" href="/categories">Subscrption</a>
+            <a class="nav-link" href="/categories">Login</a>
+        </nav>
+    </header>
+
+    <main class="container mt-4">
+        @Body
+    </main>
+
+    <footer class="border-top text-center py-3 mt-5 text-muted">
+        &copy; @DateTime.Now.Year MyShopSite. All rights reserved.
+    </footer>
+</div>
