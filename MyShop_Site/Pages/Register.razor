@@ -156,10 +156,10 @@
                 ContactEmail = registerModel.ContactEmail,
                 ContactPhone = registerModel.ContactPhone,
                 Country = registerModel.Country,
-                CompanySize = registerModel.CompanySize,
+                CompanySize = Enum.Parse<CompanySize>(registerModel.CompanySize),
                 Industry = registerModel.Industry,
                 Username = registerModel.Username,
-                Password = registerModel.Password
+                PasswordHash = registerModel.Password
             };
 
             var result = await UserService.RegisterAsync(user);

@@ -3,6 +3,8 @@ using MyShop_Site.Data;
 using MyShop_Site.Models;
 using System.Security.Cryptography;
 using System.Text;
+using BCrypt.Net;
+
 
 namespace MyShop_Site.Services
 {
@@ -68,8 +70,8 @@ namespace MyShop_Site.Services
                 }
 
                 // Hash password (in production, use proper password hashing)
-                user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
-                user.CreatedAt = DateTime.UtcNow;
+                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
+                user.CreatedDate = DateTime.UtcNow;
 
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
