@@ -1,62 +1,101 @@
-using Microsoft.IdentityModel.Logging;
-using Minerets.Shop.Models;
-using MyShop_Site.Models.Authentication;
-using System.Net.Http.Headers;
-using System.Security.Cryptography;
-using System.Text;
 
+using MyShop_Site.Models.RequestModels;
+using MyShop_Site.Models.ResponseModels;
 
 namespace MyShop_Site.Services
 {
     public class UserService
     {
+        private readonly MasterService _masterService;
+        private readonly ILogger<UserService> _logger;
 
-        //public async Task RegisterAsync()
-        //{
-        //    //IResponseModel response = await MasterService.RequestMaster<CreateUserResponseModel>("Authentication/Signup", new CreateUserModel()
-        //    //{
-        //    //    //FullName = FullName,
-        //    //    //UserName = UserName,
-        //    //    //EmailAddress = Email,
-        //    //    //MobileNumber = MobileNumber,
-        //    //    //Password = Password,
-        //    //});
-        //    if (response is CreateUserResponseModel createUserResponseModel)
-        //    {
-        //        //    userID = createUserResponseModel.ID;
-        //        //    Route to Verification Page
-        //        //        _ = ((VerificationModel)verificationPage.BindingContext).StartVerification(VerifyOtp, ResendOtp, MobileNumber, Email);
-        //        //}
-        //    }
-        //    else if (response is FailedResponseModel failedResponseModel)
-        //    {
-        //    }
-        //}
-    
-
-        // Helper method for password hashing (replace with a strong hashing algorithm in production)
-        private string HashPassword(string password)
+        public UserService(MasterService masterService, ILogger<UserService> logger)
         {
-            // Example using a simple hash, replace with BCrypt or similar for production
-            using (var sha256Hash = SHA256.Create())
+            _masterService = masterService;
+            _logger = logger;
+        }
+
+        public async Task<LoginResponseModel> LoginAsync(string username, string password)
+        {
+            try
             {
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
+                var loginRequest = new LoginRequestModel
                 {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
+                    Username = username,
+                    Password = password
+                };
+
+                var response = await _masterService.RequestMasterAsync<LoginResponseModel>("auth/login", loginRequest);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Login failed for user: {Username}", username);
+                return new LoginResponseModel
+                {
+                    IsSuccess = false,
+                    Message = "Login failed. Please try again."
+                };
             }
         }
 
-        // Helper method for password verification (replace with a strong hashing algorithm in production)
-        private bool VerifyPassword(string providedPassword, string hashedPassword)
+        public async Task<RegisterResponseModel> RegisterAsync(RegisterRequestModel registerRequest)
         {
-            // Example using a simple hash, replace with BCrypt or similar for production
-            return HashPassword(providedPassword) == hashedPassword;
+            try
+            {
+                var response = await _masterService.RequestMasterAsync<RegisterResponseModel>("auth/register", registerRequest);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Registration failed for user: {Username}", registerRequest.Username);
+                return new RegisterResponseModel
+                {
+                    IsSuccess = false,
+                    Message = "Registration failed. Please try again."
+                };
+            }
         }
 
+        public async Task<UserInfoResponseModel> GetUserInfoAsync(int userId)
+        {
+            try
+            {
+                var response = await _masterService.RequestMasterAsync<UserInfoResponseModel>($"users/{userId}");
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to get user info for ID: {UserId}", userId);
+                return new UserInfoResponseModel
+                {
+                    IsSuccess = false,
+                    Message = "Failed to retrieve user information."
+                };
+            }
+        }
 
+        public async Task<BaseResponseModel> UpdateUserAsync(int userId, object updateRequest)
+        {
+            try
+            {
+                var response = await _masterService.RequestMasterAsync<BaseResponseModel>($"users/{userId}", updateRequest);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to update user: {UserId}", userId);
+                return new BaseResponseModel
+                {
+                    IsSuccess = false,
+                    Message = "Failed to update user information."
+                };
+            }
+        }
+
+        public void Logout()
+        {
+            _masterService.ClearAuthentication();
+        }
     }
 }

@@ -1,12 +1,7 @@
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.EntityFrameworkCore;
-using MyShop_Site.Data;
 using MyShop_Site.Services;
-using MyShopSite.Startup;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,23 +9,25 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
-// Add Entity Framework
-builder.Services.AddDbContext<MyShopDbContext>(options =>
-    options.UseInMemoryDatabase("MyShopDb"));
+// Add HttpClient for API calls
+builder.Services.AddHttpClient();
 
-// Add custom services
+// Register custom services
+builder.Services.AddScoped<MasterService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<ProductService>();
-builder.Services.AddScoped<SubscriptionService>();
-builder.Services.AddScoped<OrderService>();
+builder.Services.AddScoped<CustomAuthenticationStateProvider>();
+builder.Services.AddScoped<AuthenticationStateProvider>(provider => provider.GetRequiredService<CustomAuthenticationStateProvider>());
 
-// Add authentication services
+// Add protected browser storage for client-side session management
 builder.Services.AddScoped<ProtectedSessionStorage>();
-builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 
-// Add application services
-builder.Services.AddApplicationServices();
-builder.Services.AddCoresPolicies();
+// Add authorization
+builder.Services.AddAuthorization();
+
+// Add configuration
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+builder.Configuration.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
 
 var app = builder.Build();
 
@@ -43,20 +40,14 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
 
-// Use global middleware
-app.UseGlobalMiddleware();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
-
-//// Initialize database
-//using (var scope = app.Services.CreateScope())
-//{
-//    var context = scope.ServiceProvider.GetRequiredService<MyShopDbContext>();
-//    context.Database.EnsureCreated();
-//}
 
 app.Run();
