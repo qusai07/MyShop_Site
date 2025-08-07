@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using MyShop_Site.Repo.Implementations;
@@ -28,6 +29,16 @@ builder.Services.AddAuthorization();
 // Add configuration
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 builder.Configuration.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+       .AddCookie(options => {
+           options.LoginPath = "/login";
+           options.LogoutPath = "/logout";
+           options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+           options.SlidingExpiration = true;
+           options.Cookie.HttpOnly = true;
+           options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+           options.Cookie.SameSite = SameSiteMode.Lax;
+       });
 
 var app = builder.Build();
 
@@ -36,6 +47,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
 
 app.UseAuthentication();
 app.UseAuthorization();

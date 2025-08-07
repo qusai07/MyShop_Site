@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.DataProtection;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.Extensions.Options;
 using MyShop_Site.Repo.Interfaces;
 using System.Security.Cryptography;
 using System.Text;
@@ -30,6 +32,7 @@ namespace MyShop_Site.Repo.Implementations
                 var httpContext = _httpContextAccessor.HttpContext;
                 if (httpContext == null) return;
 
+            
                 // Encrypt the value
                 var encryptedValue = _dataProtector.Protect(value);
 
@@ -44,7 +47,7 @@ namespace MyShop_Site.Repo.Implementations
                 _logger.LogError(ex, "Error setting secure cookie: {CookieKey}", key);
             }
         }
-
+    
         public void SetSecureCookie<T>(string key, T value, TimeSpan? expiry = null, bool essential = false)
         {
             try
