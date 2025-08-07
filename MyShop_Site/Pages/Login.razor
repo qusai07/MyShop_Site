@@ -78,7 +78,7 @@
 
         try
         {
-            var user = await UserService.AuthenticateAsync(loginModel.Username, loginModel.Password);
+            var user = await MasterService.Instance.AuthMasterUser(loginModel.Username, loginModel.Password);
             if (user != null)
             {
                 //await AuthStateProvider.MarkUserAsAuthenticatedAsync(user);

@@ -1,88 +1,38 @@
-using Microsoft.EntityFrameworkCore;
-using MyShop_Site.Data;
-using MyShop_Site.Models;
-using BCrypt.Net;
+using Microsoft.IdentityModel.Logging;
+using Minerets.Shop.Models;
+using MyShop_Site.Models.Authentication;
+using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
-using BCrypt.Net;
 
 
 namespace MyShop_Site.Services
 {
     public class UserService
     {
-        private readonly MyShopDbContext _context;
 
-        public UserService(MyShopDbContext context)
-        {
-            _context = context;
-        }
-
-        public async Task<bool> IsUsernameAvailableAsync(string username)
-        {
-            return !await _context.Users.AnyAsync(u => u.Username == username);
-        }
-
-        public async Task<bool> IsEmailAvailableAsync(string email)
-        {
-            return !await _context.Users.AnyAsync(u => u.Email == email);
-        }
-
-        public async Task<User> CreateUserAsync(User user, string password)
-        {
-            user.Password = HashPassword(password);
-            user.CreatedAt = DateTime.UtcNow;
-
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return user;
-        }
-
-        public async Task<User?> AuthenticateAsync(string username, string password)
-        {
-            var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.Username == username && u.IsActive);
-
-            if (user != null && VerifyPassword(password, user.Password))
-            {
-                return user;
-            }
-
-            return null;
-        }
-
-        public async Task<User?> GetUserByIdAsync(int id)
-        {
-            return await _context.Users.FindAsync(id);
-        }
-
-        public async Task<User?> RegisterAsync(User user)
-        {
-            try
-            {
-                // Check if username or email already exists
-                var existingUser = await _context.Users
-                    .FirstOrDefaultAsync(u => u.Username == user.Username || u.Email == user.Email);
-
-                if (existingUser != null)
-                {
-                    return null; // User already exists
-                }
-
-                // Hash password (in production, use proper password hashing)
-                user.Password= BCrypt.Net.BCrypt.HashPassword(user.Password);
-                user.CreatedAt = DateTime.UtcNow;
-
-                _context.Users.Add(user);
-                await _context.SaveChangesAsync();
-                return user;
-            }
-            catch
-            {
-                return null;
-            }
-        }
+        //public async Task RegisterAsync()
+        //{
+        //    //IResponseModel response = await MasterService.RequestMaster<CreateUserResponseModel>("Authentication/Signup", new CreateUserModel()
+        //    //{
+        //    //    //FullName = FullName,
+        //    //    //UserName = UserName,
+        //    //    //EmailAddress = Email,
+        //    //    //MobileNumber = MobileNumber,
+        //    //    //Password = Password,
+        //    //});
+        //    if (response is CreateUserResponseModel createUserResponseModel)
+        //    {
+        //        //    userID = createUserResponseModel.ID;
+        //        //    Route to Verification Page
+        //        //        _ = ((VerificationModel)verificationPage.BindingContext).StartVerification(VerifyOtp, ResendOtp, MobileNumber, Email);
+        //        //}
+        //    }
+        //    else if (response is FailedResponseModel failedResponseModel)
+        //    {
+        //    }
+        //}
+    
 
         // Helper method for password hashing (replace with a strong hashing algorithm in production)
         private string HashPassword(string password)
@@ -107,10 +57,6 @@ namespace MyShop_Site.Services
             return HashPassword(providedPassword) == hashedPassword;
         }
 
-        // Helper method to get user by username
-        private async Task<User?> GetUserByUsernameAsync(string username)
-        {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
-        }
+
     }
 }
