@@ -1,10 +1,10 @@
-
+using MyShop_Site.Models.Common;
+using MyShop_Site.Models.ResponseModels;
+using MyShop_Site.Repo.Interfaces;
+using System.Net;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using System.Net.Http.Headers;
-using System.Net;
-using MyShop_Site.Models.ResponseModels;
-using MyShop_Site.Models.RequestModels;
 
 namespace MyShop_Site.Services
 {
@@ -15,15 +15,25 @@ namespace MyShop_Site.Services
         private readonly ILogger<MasterService> _logger;
         private string _authToken = string.Empty;
         private DateTime _tokenExpiry = DateTime.MinValue;
+        private readonly ISecureCookieService _cookieService;
+
 
         public string MasterBaseUrl { get; }
 
-        public MasterService(HttpClient httpClient, IConfiguration configuration, ILogger<MasterService> logger)
+        public  MasterService(ISecureCookieService cookieService,HttpClient httpClient, IConfiguration configuration, ILogger<MasterService> logger)
         {
+            _cookieService = cookieService;
             _httpClient = httpClient;
             _configuration = configuration;
             _logger = logger;
-            MasterBaseUrl = _configuration["MasterAPI:BaseUrl"] ?? "https://api.yourservice.com";
+            MasterBaseUrl = _configuration["MasterAPI:BaseUrl"] ?? "http://192.168.0.15/ShopMaster";
+            var token = _cookieService.GetCookie("AuthToken");
+            if (!string.IsNullOrEmpty(token))
+            {
+                _authToken = token;
+                _tokenExpiry = DateTime.UtcNow.AddHours(1);
+            }
+
         }
 
         public async Task<bool> AuthenticateAsync(string username, string password)
@@ -36,12 +46,14 @@ namespace MyShop_Site.Services
                     Password = password
                 };
 
-                var response = await RequestMasterAsync<LoginResponseModel>("auth/login", loginRequest);
-                
-                if (response.IsSuccess && response is LoginResponseModel loginResponse)
+                var response = await RequestMasterAsync<LoginResponseModel>("Authentication/Authenticate", loginRequest);
+
+                if (!string.IsNullOrEmpty(response.Token))
                 {
-                    _authToken = loginResponse.Token;
+                    _authToken = response.Token;
                     _tokenExpiry = DateTime.UtcNow.AddHours(1); // Assume 1 hour expiry
+                    _cookieService.SetSecureCookie("AuthToken", _authToken, TimeSpan.FromHours(1), essential: true);
+
                     return true;
                 }
             }
@@ -53,84 +65,80 @@ namespace MyShop_Site.Services
             return false;
         }
 
-        public async Task<T> RequestMasterAsync<T>(string operation, object requestModel = null, bool isUnauthorized = false) where T : IResponseModel, new()
+        public async Task<T> RequestMasterAsync<T>(string operation, object? requestModel = null, bool isRetry = false) where T : IResponseModel, new()
         {
+            var responseModel = new T();
+
             try
             {
-                // Check if token is expired and refresh if needed
-                if (!isUnauthorized && IsTokenExpired())
+                if (IsTokenExpired() && !isRetry)
                 {
-                    // Handle token refresh logic here if needed
+                    // Handle token refresh here if necessary
                 }
 
-                _httpClient.DefaultRequestHeaders.Clear();
-                
-                if (!string.IsNullOrEmpty(_authToken) && !isUnauthorized)
+                using var request = new HttpRequestMessage(HttpMethod.Post, $"{MasterBaseUrl}/api/{operation}");
+
+                if (!string.IsNullOrEmpty(_authToken) && !isRetry)
                 {
-                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _authToken);
+                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _authToken);
                 }
 
-                _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var requestContent = requestModel != null 
-                    ? new StringContent(JsonSerializer.Serialize(requestModel), Encoding.UTF8, "application/json")
-                    : null;
-
-                var httpResponse = await _httpClient.PostAsync($"{MasterBaseUrl}/api/{operation}", requestContent);
-
-                var responseContent = await httpResponse.Content.ReadAsStringAsync();
-
-                switch (httpResponse.StatusCode)
+                if (requestModel != null)
                 {
-                    case HttpStatusCode.OK:
-                        var successResponse = JsonSerializer.Deserialize<T>(responseContent, new JsonSerializerOptions
+                    var json = JsonSerializer.Serialize(requestModel);
+                    request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+                }
+
+                using var response = await _httpClient.SendAsync(request);
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    if (typeof(T) == typeof(LoginResponseModel))
+                    {
+                        return (T)(object)new LoginResponseModel
+                        {
+                            Token = responseContent,
+                            IsSuccess = true,
+                            Message = "Success"
+                        };
+                    }
+                    else
+                    {
+                        var deserialized = JsonSerializer.Deserialize<T>(responseContent, new JsonSerializerOptions
                         {
                             PropertyNameCaseInsensitive = true
                         });
-                        return successResponse ?? new T();
-
-                    case HttpStatusCode.BadRequest:
-                        var badRequestResponse = new T();
-                        badRequestResponse.IsSuccess = false;
-                        badRequestResponse.Message = "Bad Request: " + responseContent;
-                        return badRequestResponse;
-
-                    case HttpStatusCode.Unauthorized:
-                        if (isUnauthorized)
-                        {
-                            var unauthorizedResponse = new T();
-                            unauthorizedResponse.IsSuccess = false;
-                            unauthorizedResponse.Message = "Unauthorized";
-                            return unauthorizedResponse;
-                        }
-                        else
-                        {
-                            // Try to re-authenticate and retry
-                            return await RequestMasterAsync<T>(operation, requestModel, true);
-                        }
-
-                    case HttpStatusCode.InternalServerError:
-                        var serverErrorResponse = new T();
-                        serverErrorResponse.IsSuccess = false;
-                        serverErrorResponse.Message = "Server Error: " + responseContent;
-                        return serverErrorResponse;
-
-                    default:
-                        var unknownErrorResponse = new T();
-                        unknownErrorResponse.IsSuccess = false;
-                        unknownErrorResponse.Message = "Unknown Error: " + responseContent;
-                        return unknownErrorResponse;
+                        return deserialized ?? new T { IsSuccess = false, Message = "Empty response from server." };
+                    }
                 }
+
+                if (response.StatusCode == HttpStatusCode.Unauthorized && !isRetry)
+                {
+                    return await RequestMasterAsync<T>(operation, requestModel, true);
+                }
+
+                responseModel.IsSuccess = false;
+                responseModel.Message = $"{response.StatusCode}: {responseContent}";
+            }
+            catch (JsonException jsonEx)
+            {
+                _logger.LogError(jsonEx, "Failed to deserialize JSON for operation: {Operation}", operation);
+                responseModel.IsSuccess = false;
+                responseModel.Message = "Invalid JSON response.";
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Request to Master API failed for operation: {Operation}", operation);
-                var errorResponse = new T();
-                errorResponse.IsSuccess = false;
-                errorResponse.Message = $"Request failed: {ex.Message}";
-                return errorResponse;
+                responseModel.IsSuccess = false;
+                responseModel.Message = $"Unexpected error: {ex.Message}";
             }
+
+            return responseModel;
         }
+
 
         private bool IsTokenExpired()
         {
@@ -141,6 +149,8 @@ namespace MyShop_Site.Services
         {
             _authToken = string.Empty;
             _tokenExpiry = DateTime.MinValue;
+            _cookieService.DeleteCookie("AuthToken");
         }
+
     }
 }

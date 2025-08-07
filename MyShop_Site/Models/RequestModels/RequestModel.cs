@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Text;
 
-namespace Minerets.Shop.Models
+namespace MyShop_Site.Models.RequestModels
 {
     public interface IResponseModel
     {

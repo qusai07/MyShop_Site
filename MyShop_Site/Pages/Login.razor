@@ -1,25 +1,25 @@
 
 @page "/login"
 @using Microsoft.AspNetCore.Components.Authorization
-@inject UserService UserService
+@inject MasterService  MasterService
 @inject NavigationManager Navigation
-@*@inject CustomAuthenticationStateProvider AuthStateProvider*@
 
 <PageTitle>Login - MyShop</PageTitle>
 
 <div class="container-fluid vh-100">
     <div class="row h-100">
-        <div class="col-lg-6 d-flex align-items-center justify-content-center bg-primary">
+        <div class="col-lg-6 d-flex align-items-center justify-content-center btn-primarySeconed ">
             <div class="text-center text-white">
                 <h1 class="display-4 fw-bold mb-4">Welcome Back!</h1>
                 <p class="lead">Sign in to access your MyShop account</p>
             </div>
         </div>
         <div class="col-lg-6 d-flex align-items-center justify-content-center">
+            
             <div class="card shadow-lg border-0" style="width: 100%; max-width: 400px;">
                 <div class="card-body p-5">
                     <h3 class="text-center mb-4">Sign In</h3>
-                    
+
                     @if (!string.IsNullOrEmpty(errorMessage))
                     {
                         <div class="alert alert-danger" role="alert">
@@ -29,7 +29,7 @@
 
                     <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
                         <DataAnnotationsValidator />
-                        
+
                         <div class="mb-3">
                             <label class="form-label">Username or Email</label>
                             <InputText @bind-Value="loginModel.Username" class="form-control" placeholder="Enter username or email" />
@@ -66,7 +66,7 @@
 </div>
 
 @code {
-    private LoginModel loginModel = new();
+        private Models.Common.LoginRequestModel loginModel = new Models.Common.LoginRequestModel();
     private string errorMessage = string.Empty;
     private bool showPassword = false;
     private bool isLoading = false;
@@ -78,7 +78,7 @@
 
         try
         {
-            var user = await MasterService.Instance.AuthMasterUser(loginModel.Username, loginModel.Password);
+            var user = await MasterService.AuthenticateAsync(loginModel.Username, loginModel.Password);
             if (user != null)
             {
                 //await AuthStateProvider.MarkUserAsAuthenticatedAsync(user);
@@ -104,12 +104,5 @@
         showPassword = !showPassword;
     }
 
-    public class LoginModel
-    {
-        [Required(ErrorMessage = "Username or email is required")]
-        public string Username { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Password is required")]
-        public string Password { get; set; } = string.Empty;
-    }
 }

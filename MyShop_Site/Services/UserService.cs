@@ -1,5 +1,5 @@
 
-using MyShop_Site.Models.RequestModels;
+using MyShop_Site.Models.Common;
 using MyShop_Site.Models.ResponseModels;
 
 namespace MyShop_Site.Services
@@ -14,31 +14,6 @@ namespace MyShop_Site.Services
             _masterService = masterService;
             _logger = logger;
         }
-
-        public async Task<LoginResponseModel> LoginAsync(string username, string password)
-        {
-            try
-            {
-                var loginRequest = new LoginRequestModel
-                {
-                    Username = username,
-                    Password = password
-                };
-
-                var response = await _masterService.RequestMasterAsync<LoginResponseModel>("auth/login", loginRequest);
-                return response;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Login failed for user: {Username}", username);
-                return new LoginResponseModel
-                {
-                    IsSuccess = false,
-                    Message = "Login failed. Please try again."
-                };
-            }
-        }
-
         public async Task<RegisterResponseModel> RegisterAsync(RegisterRequestModel registerRequest)
         {
             try

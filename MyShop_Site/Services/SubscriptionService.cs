@@ -1,36 +1,27 @@
-
-using Microsoft.EntityFrameworkCore;
-using MyShop_Site.Data;
 using MyShop_Site.Models;
 
 namespace MyShop_Site.Services
 {
     public class SubscriptionService
     {
-        private readonly MyShopDbContext _context;
 
-        public SubscriptionService(MyShopDbContext context)
+        public SubscriptionService()
         {
-            _context = context;
         }
 
-        public async Task<List<SubscriptionPlan>> GetSubscriptionPlansAsync()
-        {
-            return await _context.SubscriptionPlans
-                .OrderBy(p => p.MonthlyPrice)
-                .ToListAsync();
-        }
+        //public async Task<List<SubscriptionPlan>> GetSubscriptionPlansAsync()
+        //{
+      
+        //}
 
-        public async Task<SubscriptionPlan?> GetSubscriptionPlanAsync(int planId)
-        {
-            return await _context.SubscriptionPlans
-                .FirstOrDefaultAsync(p => p.Id == planId);
-        }
+        //public async Task<SubscriptionPlan?> GetSubscriptionPlanAsync(int planId)
+        //{
 
-        public async Task<List<AddOn>> GetAddOnsAsync()
-        {
-            return await _context.AddOns.ToListAsync();
-        }
+        //}
+
+        //public async Task<List<AddOn>> GetAddOnsAsync()
+        //{
+        //}
 
         public decimal CalculateTotal(SubscriptionPlan plan, List<AddOn> addOns, BillingCycle cycle, int userCount = 1)
         {

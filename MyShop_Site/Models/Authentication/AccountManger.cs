@@ -1,4 +1,4 @@
-﻿using Minerets.Shop.Models;
+﻿using MyShop_Site.Models.RequestModels;
 
 namespace MyShop_Site.Models.Authentication
 {

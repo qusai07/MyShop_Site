@@ -1,6 +1,7 @@
 @page "/register"
 @inject UserService UserService
 @inject NavigationManager Navigation
+@using MyShop_Site.Models.Common
 @using MyShop_Site.Models.RequestModels
 @using MyShop_Site.Models.ResponseModels
 @using MyShop_Site.Services
@@ -42,13 +43,13 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Contact Email *</label>
-                                <InputText type="email" @bind-Value="registerModel.ContactEmail" class="form-control" placeholder="Enter email address" />
-                                <ValidationMessage For="() => registerModel.ContactEmail" class="text-danger" />
+                                <InputText type="email" @bind-Value="registerModel.Email" class="form-control" placeholder="Enter email address" />
+                                <ValidationMessage For="() => registerModel.Email" class="text-danger" />
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Contact Phone *</label>
-                                <InputText @bind-Value="registerModel.ContactPhone" class="form-control" placeholder="Enter phone number" />
-                                <ValidationMessage For="() => registerModel.ContactPhone" class="text-danger" />
+                                <InputText @bind-Value="registerModel.PhoneNumber" class="form-control" placeholder="Enter phone number" />
+                                <ValidationMessage For="() => registerModel.PhoneNumber" class="text-danger" />
                             </div>
                         </div>
 

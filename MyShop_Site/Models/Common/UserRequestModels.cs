@@ -1,8 +1,7 @@
-
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace MyShop_Site.Models.RequestModels
+namespace MyShop_Site.Models.Common
 {
     public class LoginRequestModel
     {

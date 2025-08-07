@@ -17,39 +17,44 @@ namespace MyShop_Site.Services
             _userService = userService;
         }
 
-        public override async Task<AuthenticationState> GetAuthenticationStateAsync()
+        public override Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            try
-            {
-                var userIdResult = await _sessionStorage.GetAsync<int>("userId");
-                
-                if (userIdResult.Success)
-                {
-                    var user = await _userService.GetUserByIdAsync(userIdResult.Value);
-                    if (user != null)
-                    {
-                        var claims = new[]
-                        {
-                            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                            new Claim(ClaimTypes.Name, user.Username),
-                            new Claim(ClaimTypes.Email, user.Email),
-                            new Claim("CompanyName", user.CompanyName)
-                        };
-
-                        var identity = new ClaimsIdentity(claims, "custom");
-                        var principal = new ClaimsPrincipal(identity);
-                        
-                        return new AuthenticationState(principal);
-                    }
-                }
-            }
-            catch
-            {
-                // If there's an error reading from session storage, treat as anonymous
-            }
-
-            return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+            throw new NotImplementedException();
         }
+
+        //public override async Task<AuthenticationState> GetAuthenticationStateAsync()
+        //{
+        //    try
+        //    {
+        //        var userIdResult = await _sessionStorage.GetAsync<int>("userId");
+
+        //        if (userIdResult.Success)
+        //        {
+        //            var user = await _userService.GetUserByIdAsync(userIdResult.Value);
+        //            if (user != null)
+        //            {
+        //                var claims = new[]
+        //                {
+        //                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+        //                    new Claim(ClaimTypes.Name, user.Username),
+        //                    new Claim(ClaimTypes.Email, user.Email),
+        //                    new Claim("CompanyName", user.CompanyName)
+        //                };
+
+        //                var identity = new ClaimsIdentity(claims, "custom");
+        //                var principal = new ClaimsPrincipal(identity);
+
+        //                return new AuthenticationState(principal);
+        //            }
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        // If there's an error reading from session storage, treat as anonymous
+        //    }
+
+        //    return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+        //}
 
         public async Task MarkUserAsAuthenticatedAsync(User user)
         {

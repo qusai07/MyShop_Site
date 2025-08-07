@@ -1,28 +1,28 @@
 
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using MyShop_Site.Repo.Implementations;
+using MyShop_Site.Repo.Interfaces;
 using MyShop_Site.Services;
+using MyShopSite.Infostructure.BusinessService;
+using MyShopSite.Startup;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddBusinessServiceModule();
+builder.Services.AddCoresPolicies();
 
-// Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
-// Add HttpClient for API calls
 builder.Services.AddHttpClient();
 
 // Register custom services
-builder.Services.AddScoped<MasterService>();
-builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<ProductService>();
-builder.Services.AddScoped<CustomAuthenticationStateProvider>();
-builder.Services.AddScoped<AuthenticationStateProvider>(provider => provider.GetRequiredService<CustomAuthenticationStateProvider>());
+
+//builder.Services.AddScoped<CustomAuthenticationStateProvider>();
+//builder.Services.AddScoped<AuthenticationStateProvider>(provider => provider.GetRequiredService<CustomAuthenticationStateProvider>());
 
 // Add protected browser storage for client-side session management
-builder.Services.AddScoped<ProtectedSessionStorage>();
 
-// Add authorization
 builder.Services.AddAuthorization();
 
 // Add configuration
@@ -31,13 +31,7 @@ builder.Configuration.AddJsonFile($"appsettings.{builder.Environment.Environment
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error");
-    app.UseHsts();
-}
-
+app.UseGlobalMiddleware();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

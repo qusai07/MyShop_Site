@@ -1,4 +1,5 @@
-﻿using MyShopSite.Infostructure.BusinessService;
+﻿using Microsoft.Extensions.Configuration;
+using MyShopSite.Infostructure.BusinessService;
 
 namespace MyShopSite.Startup
 {
@@ -8,11 +9,6 @@ namespace MyShopSite.Startup
         {
             services.AddBusinessServiceModule();
         }
-        //public static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
-        //{
-        //    services.AddDbContext<>(options =>
-        //        options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-        //}
 
         public static void AddCoresPolicies(this IServiceCollection services)
         {

@@ -41,14 +41,10 @@ namespace MyShop_Site.Models.ResponseModels
 
     public class LoginResponseModel : BaseResponseModel
     {
-        [JsonPropertyName("user")]
-        public UserInfoResponseModel User { get; set; }
 
         [JsonPropertyName("token")]
         public string Token { get; set; }
 
-        [JsonPropertyName("refreshToken")]
-        public string RefreshToken { get; set; }
     }
 
     public class RegisterResponseModel : BaseResponseModel
@@ -56,7 +52,5 @@ namespace MyShop_Site.Models.ResponseModels
         [JsonPropertyName("userId")]
         public int UserId { get; set; }
 
-        [JsonPropertyName("message")]
-        public new string Message { get; set; }
     }
 }

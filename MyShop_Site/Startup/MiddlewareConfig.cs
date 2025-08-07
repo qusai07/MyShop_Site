@@ -12,12 +12,15 @@
                 await next();
             });
 
-
-            //Type Of Environments
-            if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
+            if (app.Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                app.UseHsts();
+            }
         }
     }
-}
+} 
